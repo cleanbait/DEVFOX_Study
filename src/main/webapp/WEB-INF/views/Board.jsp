@@ -45,6 +45,55 @@
 	background-color: black;
 	color: white;
 	}
+	
+	input[type=button] {
+	cursor: pointer;
+	background-color: white;
+	color: black;
+	width: 70px;
+	height: 20px;
+	font-size: 15px;
+	}
+	
+	input[type=button]:hover {
+	background-color: black;
+	color: white;
+	}
+	
+	.navigator {
+		text-align: center;
+	}
+	
+	#pagingForm {
+		text-align: center;
+	}
+	
+	h1 {
+		margin-top: 20px;
+		margin-bottom: 20px;
+		text-align: center;
+	}
+	
+	table {
+    width: 100%;
+    border: 1px solid #444444;
+    border-collapse: collapse;
+    }
+    
+  	th, td {
+    border: 1px solid #444444;
+  	}
+  	
+  	a {
+  		text-decoration-line: none;
+  		color: black;
+  	}
+  	
+  	a:hover {
+  		text-decoration-line: underline; 
+  		background-color: #e9ecef;
+  	}
+	
 </style>
 
 <script type="text/javascript">
@@ -62,8 +111,9 @@
 </head>
 <body>
 	<div class="board_table">
-	<h2>[掲示板] ${navi.totalRecordsCount }</h2>
-		<table border="1">
+	<h1>[掲示板]</h1>
+	<!-- 전체 글 확인 용 ${navi.totalRecordsCount } -->
+		<table>
 			<tr>
 				<th>NUM</th>
 				<th width="500px;">TITLE</th>
@@ -84,7 +134,7 @@
 		<br>
 		
 		<!-- 페이징 처리 -->
-		<div id="navigator">
+		<div class="navigator">
 			<a href="javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup })"><<</a>
 			&nbsp;&nbsp;
 			<a href="javascript:pagingFormSubmit(${navi.currentPage - 1 })">Previous</a>
@@ -103,10 +153,10 @@
 		
 		<!-- 검색 처리 -->
 		<br>
-		<form id="pagingForm" method="get" action="Board">
+		<form action="Board" method="get" id="pagingForm">
 			<input type="hidden" name="page" id="page">
-			제목 : <input type="text" name="searchText" value="${searchText }">
-			<input type="button" onclick="pagingFormSubmit(1)" value="검색">
+			<select><option>Title</option></select> <input type="text" name="searchText" value="${searchText }">
+			<input type="button" onclick="pagingFormSubmit(1)" value="Search">
 		</form>
 		
 		<div class="inter">

@@ -30,7 +30,6 @@ public class boardController {
 						Model model) {
 		//페이지 계산을 위한 게시물 개수 조회
 		int total = dao.getTotal(searchText);
-		System.out.println(page);
 		//페이징 객체 생성
 		PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, page, total);
 		
