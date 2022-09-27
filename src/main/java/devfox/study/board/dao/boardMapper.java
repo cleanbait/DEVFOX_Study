@@ -2,14 +2,14 @@ package devfox.study.board.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
+
 import devfox.study.board.vo.boardVO;
 import devfox.study.board.vo.replyVO;
 
 public interface boardMapper {
 
 	int write(boardVO board);
-
-	ArrayList<boardVO> list();
 
 	void addHits(int boardnum);
 
@@ -29,4 +29,9 @@ public interface boardMapper {
 
 	int reply(replyVO reply);
 
+	// 検索した後のトタル文の数
+	public int getTotal(String searchText);
+	
+	// 검색 후의 현재 페이지 목록
+	ArrayList<boardVO> list(String searchText, RowBounds rb);
 }

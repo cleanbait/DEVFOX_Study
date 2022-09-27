@@ -46,13 +46,23 @@
 	color: white;
 	}
 </style>
+
+<script type="text/javascript">
+	function pagingFormSubmit(currentPage) {
+		var form = document.getElementById("pagingForm");
+		var page = document.getElementById("page");
+
+		page.value = currentPage;
+		form.submit();
+	}
+</script>
 <head>
 <meta charset="UTF-8">
 <title>掲示板</title>
 </head>
 <body>
 	<div class="board_table">
-	<h2>[掲示板]</h2>
+	<h2>[掲示板] ${navi.totalRecordsCount }</h2>
 		<table border="1">
 			<tr>
 				<th>NUM</th>
@@ -71,6 +81,34 @@
 			</tr>
 			</c:forEach>
 		</table>
+		<br>
+		
+		<!-- 페이징 처리 -->
+		<div id="navigator">
+			<a href="javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup })"><<</a>
+			&nbsp;&nbsp;
+			<a href="javascript:pagingFormSubmit(${navi.currentPage - 1 })">Previous</a>
+			&nbsp;&nbsp;
+			<!-- 페이지 수 만큼 반복 -->
+			<c:forEach var="counter" begin="${navi.startPageGroup }" end="${navi.endPageGroup }">
+				<c:if test="${counter == navi.currentPage }"><b></c:if>
+					<a href="javascript:pagingFormSubmit(${counter })">${counter }</a>
+				<c:if test="${counter == navi.currentPage }"></b></c:if>
+			</c:forEach>
+			&nbsp;&nbsp;
+			<a href="javascript:pagingFormSubmit(${navi.currentPage + 1 })">Next</a>
+			&nbsp;&nbsp;
+			<a href="javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup })">>></a>
+		</div>
+		
+		<!-- 검색 처리 -->
+		<br>
+		<form id="pagingForm" method="get" action="Board">
+			<input type="hidden" name="page" id="page">
+			제목 : <input type="text" name="searchText" value="${searchText }">
+			<input type="button" onclick="pagingFormSubmit(1)" value="검색">
+		</form>
+		
 		<div class="inter">
 		<button onclick="location.href='write'">Write</button>
 		<button onclick="location.href='Main'">Main</button>

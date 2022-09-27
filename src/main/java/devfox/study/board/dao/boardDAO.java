@@ -2,6 +2,7 @@ package devfox.study.board.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,9 +25,10 @@ public class boardDAO {
 		return 0;
 	}
 
-	public ArrayList<boardVO> list() {
+	public ArrayList<boardVO> list(String searchText, int startRecord, int countPerPage) {
 		boardMapper mapper = session.getMapper(boardMapper.class);
-		ArrayList<boardVO> list = mapper.list();
+		RowBounds rb = new RowBounds(startRecord, countPerPage);
+		ArrayList<boardVO> list = mapper.list(searchText, rb);
 		return list;
 	}
 
@@ -70,5 +72,11 @@ public class boardDAO {
 		boardMapper mapper = session.getMapper(boardMapper.class);
 		int a = mapper.reply(reply);
 		return a;
+	}
+	
+	public int getTotal(String searchText) {
+		boardMapper mapper = session.getMapper(boardMapper.class);
+		int total = mapper.getTotal(searchText);
+		return total;
 	}
 }

@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import devfox.study.board.dao.boardDAO;
+import devfox.study.board.util.PageNavigator;
 import devfox.study.board.vo.boardVO;
 import devfox.study.board.vo.replyVO;
 
@@ -18,11 +20,25 @@ public class boardController {
 	@Autowired
 	boardDAO dao;
 	
-	//掲示板ページ移動
+	final int countPerPage = 10;
+	final int pagePerGroup = 5;
+	
+	//掲示板リストページ移動
 	@RequestMapping(value = "Board", method = RequestMethod.GET)
-	public String Board(Model model) {
-		ArrayList<boardVO> list = dao.list();
+	public String Board(@RequestParam(value="page", defaultValue = "1") int page,
+						@RequestParam(value="searchText", defaultValue = "") String searchText,
+						Model model) {
+		//페이지 계산을 위한 게시물 개수 조회
+		int total = dao.getTotal(searchText);
+		System.out.println(page);
+		//페이징 객체 생성
+		PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, page, total);
+		
+		// 게시글 가져오기
+		ArrayList<boardVO> list = dao.list(searchText, navi.getStartRecord(), navi.getCountPerPage());
 		model.addAttribute("list", list);
+		model.addAttribute("searchText", searchText);
+		model.addAttribute("navi", navi);
 		return "Board";
 	}
 	

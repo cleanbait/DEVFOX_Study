@@ -10,8 +10,12 @@
 		values (board_num_seq.nextval,#{user_id},1,#{title},#{content},sysdate,0)
 	</insert>
 	
-	<select id="list" resultType="board">
+	<select id="list" resultType="board" parameterType="string">
 		select * from board
+		<if test="_parameter != null">
+			where title like '%' || #{searchText} || '%'
+		</if>
+		order by board_num desc
 	</select>
 	
 	<update id="addHits" parameterType="int">
@@ -55,4 +59,12 @@
 	<delete id="reply_delete" parameterType="int">
 		delete from reply where replynum = #{replynum}
 	</delete>
+	
+	<!-- 전체 글 개수 조회 -->
+	<select id="getTotal" parameterType="string" resultType="int">
+		select count(*) from board
+		<if test="_parameter != null">
+			where title like '%' || #{searchText} || '%'
+		</if>
+	</select>
 </mapper>
