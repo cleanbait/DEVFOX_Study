@@ -1,10 +1,13 @@
 package devfox.study.board.vo;
 
 public class userVO {
-	private String user_id;
-	private String password;
-	private String name;
+	private String user_id;		//使用者のID
+	private String password;	//使用者のパスワード
 	
+	
+	/*
+	 * Getters and Setters
+	 */
 	
 	public String getUser_id() {
 		return user_id;
@@ -18,16 +21,12 @@ public class userVO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 	
 	@Override
 	public String toString() {
-		return "userVO [user_id=" + user_id + ", password=" + password + ", name=" + name + "]";
+		return "userVO [user_id=" + user_id + ", password=" + password + "]";
 	}
+	
 	
 }

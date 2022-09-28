@@ -30,9 +30,10 @@
 	
 	.reply_ID input[type="submit"] {
 		margin-top: 5px;
-		width: 100px;
-		height: 30px;
+		width: 177px;
+		height: 40px;
 		background-color: black;
+		font-size: 15px;
 		color: white;
 		cursor: pointer;
 	}
@@ -78,12 +79,21 @@
 <script type="text/javascript">
 function replyCheck() {
 	var id = document.getElementById("user_id").value;
-	var pw = document.getElementById("password").value;
 	var comment = document.getElementById("comment").value;
-	
-	if(id == "" || pw == "" || comment == "") {
-		alert("入力していない情報があります(정보 미입력)");
+
+	/* コメントがブランクの場合 */
+	if(comment == "") {
+		alert("コメントを入力してください(정보 미입력)");
 		return false;
+
+	/* IDがブランクの場合 */
+	} else if (id == "") {
+		if (confirm("ログインが必要な機能です。\nログインしますか？")) {
+			location.href = "Signin";
+			return false;
+		} else {
+			return false;
+		}
 	}
 
 	return true;
@@ -97,12 +107,13 @@ function replyCheck() {
 	<div class="Container">
 		<h1>[掲示文]</h1>
 		<hr>
+		<!-- 掲示文の情報 -->
 		<table>
 			<tr>
 				<td style="font-size: 25px;"><b>${board.title }</b></td>
 			</tr>
 			<tr>
-				<td><b>${board.user_id }</b> |</td>
+				<td><b>${board.user_id }</b>	</td>
 				<td><b>${board.inputdate }</b> |</td>
 				<td><b>HITS ${board.hits }</b> |</td>
 			</tr>
@@ -110,11 +121,14 @@ function replyCheck() {
 		<hr>
 		${board.content }
 		<hr>
+		<!-- ログインした場合の機能 -->
 		<c:if test="${user == board.user_id}">
 			<button onclick="location.href='delete?boardnum=${board.board_num}'">削除</button>
 			<button onclick="location.href='edit?boardnum=${board.board_num}'">書き直し</button>
 		</c:if>
 		<br><br>
+		
+		<!-- コメントの情報 -->
 		<h4>コメント</h4>
 		<hr>
 		<div id = "comments">
@@ -123,16 +137,22 @@ function replyCheck() {
 				<div class="co_ID">${reply.user_id }</div>
 				<div class="co_comment">${reply.commentt }</div>
 				<div class="co_date">${reply.inputdate }</div>
-				<button onclick="location.href='reply_delete?replynum='+ ${reply.replynum} +'&boardnum='+${board.board_num }+''">削除</button>
+				<!-- ログインした場合の機能 -->
+				<c:if test="${reply.user_id == user }">
+					<button onclick="location.href='reply_delete?replynum='+ ${reply.replynum} +'&boardnum='+${board.board_num }+''">削除</button>
+				</c:if>
+				<c:if test="${reply.user_id != user }">
+					<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				</c:if>
 			</div>
 			<hr>
 		</c:forEach>
 		</div>
+		<!-- コメントの登録 -->
 		<form action="reply" method="POST" onsubmit="return replyCheck()">
 			<div class="reply">
 				<div class="reply_ID">
-					<input type="text" id="user_id" name="user_id" placeholder="ID"><br>
-					<input type="password" id="password" name="password" placeholder="password">
+					<input type="text" id="user_id" name="user_id" readonly="readonly" value="${user }"><br>
 					<input type="submit" value="登録">
 					<input type="hidden" name="board_num" value="${board.board_num }">
 				</div>

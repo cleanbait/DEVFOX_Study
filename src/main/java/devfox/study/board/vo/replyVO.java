@@ -1,17 +1,20 @@
 package devfox.study.board.vo;
 
 public class replyVO {
-	private int replynum;		
-	private int board_num;		
-	private String user_id;	
-	private String password;
-	private String commentt;	
-	private String inputdate;
+	private int replynum;		//コメントの番号
+	private int board_num;		//掲示文の番号
+	private String user_id;		//使用者のID
+	private String commentt;	//コメントの内容
+	private String inputdate;	//コメントの作成時間
+
+	/*
+	 * Getters and Setters
+	 */
 	
 	@Override
 	public String toString() {
-		return "replyVO [replynum=" + replynum + ", board_num=" + board_num + ", user_id=" + user_id + ", password="
-				+ password + ", commentt=" + commentt + ", inputdate=" + inputdate + "]";
+		return "replyVO [replynum=" + replynum + ", board_num=" + board_num + ", user_id=" + user_id + ", commentt="
+				+ commentt + ", inputdate=" + inputdate + "]";
 	}
 
 	public int getReplynum() {
@@ -36,14 +39,6 @@ public class replyVO {
 
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getCommentt() {

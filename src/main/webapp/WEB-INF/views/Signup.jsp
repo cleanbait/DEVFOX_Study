@@ -11,9 +11,8 @@
 		var id = document.getElementById("id");
 		var pw = document.getElementById("password");
 		var pw2 = document.getElementById("password2");
-		var name = document.getElementById("name");
 
-		if (id.value == "" || pw.value == "" || pw2.value == "" || name.value == "") {
+		if (id.value == "" || pw.value == "" || pw2.value == "") {
 			alert("入力していない情報があります(정보 미입력)");
 			return false;
 		} else if (pw.value != pw2.value) {
@@ -95,7 +94,6 @@
 	div {
 		border: 1px solid;
 		width: 270px;
-		height: 400px;
 		padding: 10px;
 		margin: 0 auto;
 	}
@@ -130,8 +128,6 @@
 		<p><b>Password</b><span style="color: red;">*</span></p>
 		<p><input type="password" name="password" id="password" placeholder="パスワード"></p>
 		<p><input type="password" id="password2" placeholder="再入力"></p>
-		<p><b>Name</b><span style="color: red;">*</span></p>
-		<p><input type="text" name="name" id="name" placeholder="ネーム"></p>
 		<p><input type="submit" value="登録"> <a href="/board"><input type="button"  class="move" value="Main"></a></p>
 	</form>
 </div>

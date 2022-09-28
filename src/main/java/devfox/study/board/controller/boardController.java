@@ -20,48 +20,53 @@ public class boardController {
 	@Autowired
 	boardDAO dao;
 	
+	//ページングの掲示物数
 	final int countPerPage = 10;
+	//ページングのグループ
 	final int pagePerGroup = 5;
 	
-	//掲示板リストページ移動
+	//掲示板リストのページ移動
 	@RequestMapping(value = "Board", method = RequestMethod.GET)
 	public String Board(@RequestParam(value="page", defaultValue = "1") int page,
 						@RequestParam(value="searchText", defaultValue = "") String searchText,
 						Model model) {
-		//페이지 계산을 위한 게시물 개수 조회
+		//ページ計算のため、掲示物数照会
 		int total = dao.getTotal(searchText);
-		//페이징 객체 생성
+		
+		//ページングのオブジェクト
 		PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, page, total);
 		
-		// 게시글 가져오기
+		// 掲示物のセレクト
 		ArrayList<boardVO> list = dao.list(searchText, navi.getStartRecord(), navi.getCountPerPage());
+		
 		model.addAttribute("list", list);
 		model.addAttribute("searchText", searchText);
 		model.addAttribute("navi", navi);
 		return "Board";
 	}
 	
-	//쓰기 게시판 이동
+	//ライトの掲示板ページに
 	@RequestMapping(value = "write", method = RequestMethod.GET)
 	public String write() {
 		return "write";
 	}
 	
-	//쓰기 데이터 전송
+	//ライトのデータ、DBインサート
 	@RequestMapping(value = "write", method = RequestMethod.POST)
 	public String write(boardVO board) {
+		//DBインサート
 		if (dao.write(board) == 1) {
 			return "redirect:/Board";
 		}
 		return "write";
 	}
 	
-	//읽기 게시판 이동
+	//リードの掲示板に
 	@RequestMapping(value = "Read", method = RequestMethod.GET)
 	public String Read(Model model,int boardnum) {
-		//게시글 번호를 참조해서 글 가져오기
+		//board_numを参照して掲示文をセレクト
 		boardVO board = dao.getBoard(boardnum);
-		//게시글 번호를 참조해서 리플 가져오기
+		//board_numを参照してコメントをセレクト
 		ArrayList<replyVO> reply = dao.getReply(boardnum);
 		
 		model.addAttribute("reply", reply);
@@ -69,7 +74,7 @@ public class boardController {
 		return "Read";
 	}
 	
-	//게시글 삭제
+	//リードのデリート
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
 	public String delete(int boardnum) {
 		if(dao.delete(boardnum) == 1) {
@@ -78,37 +83,43 @@ public class boardController {
 		return "Read";
 	}
 	
-	//게시글 수정페이지 이동
+	//リードの書き直しに
 	@RequestMapping(value = "edit", method = RequestMethod.GET)
 	public String edit(Model model,int boardnum) {
+		//リードの文章をセレクト
 		boardVO board = dao.getBoard(boardnum);
 		model.addAttribute("board", board);
 		return "edit";
 	}
 	
-	//게시글 수정
+	//リードの書き直し
 	@RequestMapping(value = "edit", method = RequestMethod.POST)
 	public String edit(boardVO board) {
 		if(dao.editBoard(board) == 1) {
+			//書き直したページに
 			return "redirect:/Read?boardnum=" + board.getBoard_num() + "";
 		}
 			return "edit";
 	}
 	
-	//리플 등록
+	//コメントのインサート
 	@RequestMapping(value = "reply", method = RequestMethod.POST)
 	public String reply(replyVO reply) {
+		System.out.println(reply);
+		//コメントのインサート
 		if(dao.reply(reply)== 1) {
+			//コメントしたページに
 			return "redirect:/Read?boardnum=" + reply.getBoard_num() + "";
 		}
 			return null;
 	}
 	
-	//리플 삭제
+	//コメントのデリート
 	@RequestMapping(value = "reply_delete", method = RequestMethod.GET)
 	public String reply_delete(int replynum,int boardnum) {
 		System.out.println(boardnum);
 		if(dao.reply_delete(replynum) == 1) {
+			//コメントしたページに
 			return "redirect:/Read?boardnum=" + boardnum + "";
 		}
 			return null;

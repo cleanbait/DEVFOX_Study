@@ -15,6 +15,7 @@ public class HomeController {
 		return "home";
 	}
 	
+	//メインホームページ移動2
 	@RequestMapping(value = "Main", method = RequestMethod.GET)
 	public String Main() {
 		return "redirect:/";

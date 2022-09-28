@@ -14,8 +14,10 @@ public class AjaxLoginController {
 	@Autowired
 	userDAO dao;
 
+	//ID重複チェック
 	@RequestMapping(value = "IdCheck", method = RequestMethod.POST, produces = "application/text; charset=UTF-8")
 	public String IdCheck(String id) { 
+		//DBのID検索
 		if(dao.searchUser(id)) { 
 			return id; 
 		} else {

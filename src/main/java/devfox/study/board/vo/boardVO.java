@@ -1,14 +1,17 @@
 package devfox.study.board.vo;
 
 public class boardVO {
-	private int board_num;
-	private String user_id;
-	private String name;
-	private String title;
-	private String content;
-	private String inputdate;
-	private int hits;
+	private int board_num;		//掲示文のナンバー
+	private String user_id;		//使用者のID
+	private String title;		//掲示文のタイトル
+	private String content;		//掲示文の内容
+	private String inputdate;	//掲示文の作成時間
+	private int hits;			//掲示文のアクセス数
 	
+	
+	/*
+	 * Getters and Setters
+	 */
 	
 	public int getBoard_num() {
 		return board_num;
@@ -21,12 +24,6 @@ public class boardVO {
 	}
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public String getTitle() {
 		return title;
@@ -55,8 +52,10 @@ public class boardVO {
 	
 	@Override
 	public String toString() {
-		return "boardVO [board_num=" + board_num + ", user_id=" + user_id + ", name=" + name + ", title=" + title
-				+ ", content=" + content + ", inputdate=" + inputdate + ", hits=" + hits + "]";
+		return "boardVO [board_num=" + board_num + ", user_id=" + user_id + ", title=" + title + ", content=" + content
+				+ ", inputdate=" + inputdate + ", hits=" + hits + "]";
 	}
+
+	
 	
 }

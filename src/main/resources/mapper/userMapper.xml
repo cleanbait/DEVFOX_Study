@@ -12,8 +12,8 @@
 	
 	<!-- 新規・登録 -->
 	<insert id="Signup" parameterType="user">
-		insert into userInfo (user_id, password, name) 
-		values (#{user_id},#{password},#{name})
+		insert into userInfo (user_id, password) 
+		values (#{user_id},#{password})
 	</insert>
 	
 	<!-- ログイン -->

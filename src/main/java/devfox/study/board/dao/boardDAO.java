@@ -16,6 +16,7 @@ public class boardDAO {
 	@Autowired
 	SqlSession session;
 
+	//DBインサート
 	public int write(boardVO board) {
 		boardMapper mapper = session.getMapper(boardMapper.class);
 		int a = mapper.write(board);
@@ -25,6 +26,7 @@ public class boardDAO {
 		return 0;
 	}
 
+	// 掲示物のセレクト
 	public ArrayList<boardVO> list(String searchText, int startRecord, int countPerPage) {
 		boardMapper mapper = session.getMapper(boardMapper.class);
 		RowBounds rb = new RowBounds(startRecord, countPerPage);
@@ -32,6 +34,7 @@ public class boardDAO {
 		return list;
 	}
 
+	//掲示文セレクト
 	public boardVO getBoard(int boardnum) {
 		boardMapper mapper = session.getMapper(boardMapper.class);
 		
@@ -44,36 +47,42 @@ public class boardDAO {
 		return a;
 	}
 
+	//掲示文デリート
 	public int delete(int boardnum) {
 		boardMapper mapper = session.getMapper(boardMapper.class);
 		int a = mapper.delete(boardnum);
 		return a;
 	}
 
+	//掲示文の書き直し
 	public int editBoard(boardVO board) {
 		boardMapper mapper = session.getMapper(boardMapper.class);
 		int a = mapper.editBoard(board);
 		return a;
 	}
 
+	//コメントセレクト
 	public ArrayList<replyVO> getReply(int boardnum) {
 		boardMapper mapper = session.getMapper(boardMapper.class);
 		ArrayList<replyVO> reply = mapper.getReply(boardnum);
 		return reply;
 	}
 
+	//コメントのデリート
 	public int reply_delete(int replynum) {
 		boardMapper mapper = session.getMapper(boardMapper.class);
 		int a = mapper.reply_delete(replynum);
 		return a;
 	}
 
+	//コメントのインサート
 	public int reply(replyVO reply) {
 		boardMapper mapper = session.getMapper(boardMapper.class);
 		int a = mapper.reply(reply);
 		return a;
 	}
 	
+	//掲示物数照会
 	public int getTotal(String searchText) {
 		boardMapper mapper = session.getMapper(boardMapper.class);
 		int total = mapper.getTotal(searchText);

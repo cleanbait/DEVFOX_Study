@@ -91,7 +91,7 @@
   	
   	a:hover {
   		text-decoration-line: underline; 
-  		background-color: #e9ecef;
+  		color: red;
   	}
 	
 </style>
@@ -112,7 +112,7 @@
 <body>
 	<div class="board_table">
 	<h1>[掲示板]</h1>
-	<!-- 전체 글 확인 용 ${navi.totalRecordsCount } -->
+	<!-- Write全体データ確認用 ${navi.totalRecordsCount } -->
 		<table>
 			<tr>
 				<th>NUM</th>
@@ -133,25 +133,27 @@
 		</table>
 		<br>
 		
-		<!-- 페이징 처리 -->
+		<!-- ページング処理 -->
 		<div class="navigator">
 			<a href="javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup })"><<</a>
 			&nbsp;&nbsp;
 			<a href="javascript:pagingFormSubmit(${navi.currentPage - 1 })">Previous</a>
 			&nbsp;&nbsp;
-			<!-- 페이지 수 만큼 반복 -->
+			
+			<!-- ページ数ほど繰り返し -->
 			<c:forEach var="counter" begin="${navi.startPageGroup }" end="${navi.endPageGroup }">
 				<c:if test="${counter == navi.currentPage }"><b></c:if>
 					<a href="javascript:pagingFormSubmit(${counter })">${counter }</a>
 				<c:if test="${counter == navi.currentPage }"></b></c:if>
 			</c:forEach>
+			
 			&nbsp;&nbsp;
 			<a href="javascript:pagingFormSubmit(${navi.currentPage + 1 })">Next</a>
 			&nbsp;&nbsp;
 			<a href="javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup })">>></a>
 		</div>
 		
-		<!-- 검색 처리 -->
+		<!-- 検索処理 -->
 		<br>
 		<form action="Board" method="get" id="pagingForm">
 			<input type="hidden" name="page" id="page">

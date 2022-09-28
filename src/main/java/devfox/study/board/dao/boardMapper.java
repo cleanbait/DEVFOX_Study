@@ -9,29 +9,33 @@ import devfox.study.board.vo.replyVO;
 
 public interface boardMapper {
 
-	int write(boardVO board);
+	//掲示文インサート
+	public int write(boardVO board);
 
-	void addHits(int boardnum);
+	//Hits 増加
+	public void addHits(int boardnum);
 
-	boardVO getBoard(int boardnum);
+	//掲示文セレクト
+	public boardVO getBoard(int boardnum);
 
-	int delete(int boardnum);
+	//掲示文デリート
+	public int delete(int boardnum);
 
-	boardVO edit(int boardnum);
+	//掲示文の書き直し
+	public int editBoard(boardVO board);
 
-	int editBoard(boardVO board);
+	//コメントをセレクト
+	public ArrayList<replyVO> getReply(int boardnum);
 
-	ArrayList<replyVO> replyData(replyVO reply);
+	//コメントのデリート
+	public int reply_delete(int replynum);
 
-	ArrayList<replyVO> getReply(int boardnum);
+	//コメントのインサート
+	public int reply(replyVO reply);
 
-	int reply_delete(int replynum);
-
-	int reply(replyVO reply);
-
-	// 検索した後のトタル文の数
+	//掲示物数照会
 	public int getTotal(String searchText);
 	
-	// 검색 후의 현재 페이지 목록
-	ArrayList<boardVO> list(String searchText, RowBounds rb);
+	//掲示板セレクト
+	public ArrayList<boardVO> list(String searchText, RowBounds rb);
 }

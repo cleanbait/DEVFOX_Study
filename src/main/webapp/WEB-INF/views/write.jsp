@@ -29,6 +29,8 @@
 		var title = document.getElementById("title");
 		var content = document.getElementById("content");
 
+		console.log(title);
+
 		if (id == "") {
 			alert("ログイン必要");
 			location.href = "Signin";

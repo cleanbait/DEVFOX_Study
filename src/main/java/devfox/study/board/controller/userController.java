@@ -46,6 +46,8 @@ public class userController {
 			session.setAttribute("user", user.getUser_id());
 			return "redirect:/";
 		}
+		//間違った場合
+		model.addAttribute("not_match","ID、またはパスワードが正しくありません。");
 		return "Signin";
 	}
 	
