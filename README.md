@@ -4,12 +4,11 @@
 Java 1.8 / Spring 4.3.6     
 DB테이블 : src/main/webapp/WEB-INF/views/DB/DATABASE.TXT
 
-공부내용 정리    
+공부내용 정리 : https://github.com/cleanbait/memo    
 1. 404 500 예외처리
 2. AJAX 406 에러처리
 3. 인터셉터 처리
 4. 페이징 처리
-https://github.com/cleanbait/memo
 
 ------------------------------------------------------------
 
