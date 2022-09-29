@@ -1,0 +1,28 @@
+<Oracle DB Table>
+
+CREATE TABLE userInfo (
+    user_id varchar2(20) PRIMARY kEY,
+    password varchar2(20) NOT NULL
+);
+
+CREATE TABLE board (
+    board_num number PRIMARY KEY,
+    user_id varchar2(20) REFERENCES userInfo(user_id),
+    title varchar2(100),
+    content varchar2(2000),
+    inputdate date default sysdate,
+    hits number DEFAULT 0
+);
+
+CREATE TABLE reply (
+    replynum number PRIMARY KEY,
+    board_num number REFERENCES board(board_num) on DELETE CASCADE,
+    user_id VARCHAR2(20) not null,
+    commentt VARCHAR2(200) not null,
+    inputdate date DEFAULT sysdate
+);
+
+create SEQUENCE board_num_seq;
+create SEQUENCE replynum_seq;
+
+commit;

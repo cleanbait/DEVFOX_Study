@@ -3,6 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
@@ -20,6 +21,18 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+	
+	<!-- interceptor -->
+	<beans:bean id="LoginInterceptor" class="devfox.study.board.util.LoginInterceptor"></beans:bean>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- パス -->
+			<mvc:mapping path="/Read"/>
+			<mvc:mapping path="/write"/>
+			<beans:ref bean="LoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 	
 	<context:component-scan base-package="devfox.study.board" />
 	

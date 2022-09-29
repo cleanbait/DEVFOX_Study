@@ -74,6 +74,14 @@
     .co_date {
         width: 100px;
     }
+    
+    td {
+    	word-break:break-all;
+    }
+    
+    .content {
+    	word-break:break-all;
+    }
 </style>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
@@ -113,13 +121,13 @@ function replyCheck() {
 				<td style="font-size: 25px;"><b>${board.title }</b></td>
 			</tr>
 			<tr>
-				<td><b>${board.user_id }</b>	</td>
+				<td><b>${board.user_id }</b>   |</td>
 				<td><b>${board.inputdate }</b> |</td>
 				<td><b>HITS ${board.hits }</b> |</td>
 			</tr>
 		</table>
 		<hr>
-		${board.content }
+		<div class="content">${board.content }</div>
 		<hr>
 		<!-- ログインした場合の機能 -->
 		<c:if test="${user == board.user_id}">
