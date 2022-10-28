@@ -69,3 +69,4 @@ DB테이블 : src/main/webapp/WEB-INF/views/DB/DATABASE.TXT
 22-10-28
 1. 파일 업로드 기능 추가
 2. 비회원 글쓰기 기능만 인터셉터 수정
+3. DB및 boardVO 수정
