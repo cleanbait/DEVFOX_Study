@@ -28,7 +28,6 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<!-- パス -->
-			<mvc:mapping path="/Read"/>
 			<mvc:mapping path="/write"/>
 			<beans:ref bean="LoginInterceptor"/>
 		</mvc:interceptor>

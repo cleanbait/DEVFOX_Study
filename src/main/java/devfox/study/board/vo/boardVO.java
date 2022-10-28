@@ -7,11 +7,15 @@ public class boardVO {
 	private String content;		//掲示文の内容
 	private String inputdate;	//掲示文の作成時間
 	private int hits;			//掲示文のアクセス数
+	private String originalfile;//origin
+	private String savefile;	//save
 	
-	
-	/*
-	 * Getters and Setters
-	 */
+	@Override
+	public String toString() {
+		return "boardVO [board_num=" + board_num + ", user_id=" + user_id + ", title=" + title + ", content=" + content
+				+ ", inputdate=" + inputdate + ", hits=" + hits + ", originalfile=" + originalfile + ", savefile="
+				+ savefile + "]";
+	}
 	
 	public int getBoard_num() {
 		return board_num;
@@ -37,10 +41,10 @@ public class boardVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getinputdate() {
+	public String getInputdate() {
 		return inputdate;
 	}
-	public void setinputdate(String inputdate) {
+	public void setInputdate(String inputdate) {
 		this.inputdate = inputdate;
 	}
 	public int getHits() {
@@ -49,12 +53,21 @@ public class boardVO {
 	public void setHits(int hits) {
 		this.hits = hits;
 	}
-	
-	@Override
-	public String toString() {
-		return "boardVO [board_num=" + board_num + ", user_id=" + user_id + ", title=" + title + ", content=" + content
-				+ ", inputdate=" + inputdate + ", hits=" + hits + "]";
+	public String getOriginalfile() {
+		return originalfile;
 	}
+	public void setOriginalfile(String originalfile) {
+		this.originalfile = originalfile;
+	}
+	public String getSavefile() {
+		return savefile;
+	}
+	public void setSavefile(String savefile) {
+		this.savefile = savefile;
+	}
+	
+	
+
 
 	
 	

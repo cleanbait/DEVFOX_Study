@@ -1,13 +1,23 @@
 package devfox.study.board.controller;
 
+import java.io.FileInputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import devfox.study.board.util.FileService;
 
 import devfox.study.board.dao.boardDAO;
 import devfox.study.board.util.PageNavigator;
@@ -24,6 +34,8 @@ public class boardController {
 	final int countPerPage = 10;
 	//ページングのグループ
 	final int pagePerGroup = 5;
+	//path
+	final String uploadPath = "c:/boardfile";
 	
 	//掲示板リストのページ移動
 	@RequestMapping(value = "Board", method = RequestMethod.GET)
@@ -53,11 +65,18 @@ public class boardController {
 	
 	//ライトのデータ、DBインサート
 	@RequestMapping(value = "write", method = RequestMethod.POST)
-	public String write(boardVO board) {
+	public String write(boardVO board, MultipartFile upload) {
+		
+		if (!upload.isEmpty()) {
+			String savedfile = FileService.saveFile(upload, uploadPath);
+			board.setOriginalfile(upload.getOriginalFilename());
+			board.setSavefile(savedfile);
+		}
 		//DBインサート
 		if (dao.write(board) == 1) {
 			return "redirect:/Board";
 		}
+		
 		return "write";
 	}
 	
@@ -123,5 +142,40 @@ public class boardController {
 			return "redirect:/Read?boardnum=" + boardnum + "";
 		}
 			return null;
+	}
+	
+	@RequestMapping(value = "download", method = RequestMethod.GET)
+	public String fileDownload(int boardnum, HttpServletResponse response) {
+		boardVO board = dao.getBoard(boardnum);
+		String originalfile = board.getOriginalfile();
+		
+		try {
+			response.setHeader("Content-Disposition","attachment;filename=" + URLEncoder.encode(originalfile, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		// save path
+		String fullPath = uploadPath + "/" + board.getSavefile();
+		
+		// inputStream
+		FileInputStream filein = null;	
+		ServletOutputStream fileout = null; 
+		
+		try {
+			filein = new FileInputStream(fullPath);
+			fileout = response.getOutputStream();
+			
+			// utill
+			FileCopyUtils.copy(filein, fileout);
+			
+			filein.close();
+			fileout.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 }

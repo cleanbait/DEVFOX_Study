@@ -11,7 +11,9 @@ CREATE TABLE board (
     title varchar2(100),
     content varchar2(2000),
     inputdate date default sysdate,
-    hits number DEFAULT 0
+    hits number DEFAULT 0,
+    originalfile varchar2(500),
+    savefile varchar2(500)
 );
 
 CREATE TABLE reply (

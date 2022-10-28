@@ -129,6 +129,7 @@ function replyCheck() {
 		<hr>
 		<div class="content">${board.content }</div>
 		<hr>
+		<div><a href="download?boardnum=${board.board_num}">${board.originalfile }</a></div>
 		<!-- ログインした場合の機能 -->
 		<c:if test="${user == board.user_id}">
 			<button onclick="location.href='delete?boardnum=${board.board_num}'">削除</button>

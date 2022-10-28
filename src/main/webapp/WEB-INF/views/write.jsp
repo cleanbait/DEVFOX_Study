@@ -50,7 +50,7 @@
 <title>write</title>
 </head>
 <body>
-<form action="write" method="post" onsubmit="return formCheck()">
+<form action="write" method="post" onsubmit="return formCheck()" enctype="multipart/form-data">
 	<div>
 		<table style="text-align: center; width: 500px;">
 			<tr>
@@ -64,6 +64,11 @@
 			<tr>
 				<td>
 					<textarea id= "content" name="content" placeholder="content" maxlength="2000" style="height: 400px; width: 95%; min-width: 500px; max-width: 500px;"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="file" name="upload" size="30">
 				</td>
 			</tr>
 		</table>

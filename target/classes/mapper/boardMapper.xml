@@ -7,8 +7,8 @@
 
 	<!-- 掲示文インサート -->
 	<insert id="write" parameterType="board">
-		insert into board (board_num, user_id, title, content, inputdate, hits)
-		values (board_num_seq.nextval, #{user_id}, #{title}, #{content}, sysdate, 0)
+		insert into board (board_num, user_id, title, content, inputdate, hits<if test="originalfile != null and savefile != null">, originalfile, savefile</if>)
+		values (board_num_seq.nextval, #{user_id}, #{title}, #{content}, sysdate, 0<if test="originalfile != null and savefile != null">, #{originalfile}, #{savefile}</if> )
 	</insert>
 	
 	<!-- 掲示文セレクト -->
@@ -50,6 +50,10 @@
 		update board set 
 		title = #{title},
 		content = #{content}
+		<if test="originalfile != null and savefile != null">
+		,originalfile = #{originalfile},
+		savefile = #{savefile}
+		</if>
 		where board_num = #{board_num} and user_id = #{user_id}
 	</update>
 	
